@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adams Synchronological</title>
+    <script src="./visjs/vis-timeline-graph2d.7.7.2.min.js"></script>
+    <link rel="stylesheet" href="./visjs/vis-timeline-graph2d.7.7.2.min.css" />
+</head>
+<body>
+    <h1>Adams Synchronological Map</h1>
+
+    <div id="visualization"></div>
+
+    <script>
+        var data = {
+            display: "Adam / Eve",
+            duration: 903,
+            template: `Adam / Eve`,
+            children: [
+                {
+
+                }
+            ]
+        }
+
+        var groups = new vis.DataSet();
+        var items = new vis.DataSet();
+        groups.add([
+            {
+                id: 1,
+                content: "Adam / Eve",
+                nestedGroups: [100, 200]
+            }
+        ]);
+        items.add({
+            id: 1,
+            group: 1,
+            content: 'Adam / Eve',
+            start: new Date().setYear(-4004),
+            end: new Date().setYear(-4004 + 930)
+        });
+
+        groups.add([
+            {
+                id: 200,
+                content: "Abel",
+                nestedGroups: [],
+                showNested: false
+            },
+            {
+                id: 100,
+                content: "Cain",
+                nestedGroups: [],
+                showNested: false
+            }
+        ]);
+        items.add([
+            {
+                id: 100,
+                group: 100,
+                content: 'Cain (end date is unown, but before Adam)',
+                start: new Date().setYear(-4004 + 100),
+                end: new Date().setYear(-4004 + 930)
+            },
+            {
+                id: 200,
+                group: 200,
+                content: 'Abel (end date is unown, but before Adam)',
+                start: new Date().setYear(-4004 + 150),
+                end: new Date().setYear(-4004 + 930)
+            }
+        ]);
+
+        var container = document.getElementById('visualization');
+        var options = {
+            groupOrder: 'id',  // groupOrder can be a property name or a sorting function
+            groupTemplate: (item, element, data) => `Lord Jesus my Mster ${item.content}`,
+            start: new Date().setYear(-4004),
+            end: new Date()
+        };
+
+        var timeline = new vis.Timeline(container, items, groups, options);
+
+    </script>
+</body>
+</html>
